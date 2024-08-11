@@ -1,14 +1,35 @@
-<p style="color: green"><%= notice %></p>
+<!-- Display Notice -->
+<% if notice %>
+  <p class="text-green-500 font-semibold mb-4"><%= notice %></p>
+<% end %>
 
-<h1>Posts</h1>
+<!-- Page Heading -->
+<h1 class="text-4xl font-bold mb-6">Posts</h1>
 
-<div id="posts">
+<!-- Posts List -->
+<div id="posts" class="space-y-4">
   <% @posts.each do |post| %>
-    <%= render post %>
-    <p>
-      <%= link_to "Show this post", post %>
-    </p>
+    <div id="<%= dom_id(post) %>" class="bg-white p-6 rounded-lg shadow-md">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <%= render post %>
+        <div class="mt-4 flex justify-between">
+          <%= link_to "Show this post", post, class: "text-blue-500 hover:underline" %>
+          <%= link_to 'Delete Post',
+            post_path(post),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: 'Are you sure you want to delete this post?'
+            },
+            class: "text-red-500 hover:underline"
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
   <% end %>
 </div>
 
-<%= link_to "New post", new_post_path %>
+<!-- New Post Link -->
+<div class="mt-6">
+  <%= link_to "New post", new_post_path, class: "bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" %>
+</div>

@@ -14,10 +14,19 @@
 
 <ul>
   <% @post.comments.each do |comment| %>
-    <li>
-      <%= comment.body %>
-      <%= link_to 'Delete', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
-    </li>
+      <% if comment.persisted? %>
+        <li id="<%= dom_id(comment) %>">
+          <%= comment.body %>
+          <%= link_to 'Delete',
+            [comment.post, comment],
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: 'Are you sure?'
+            },
+            class: "text-red-500 hover:underline"
+          %>
+        </li>
+      <% end %>
   <% end %>
 </ul>
 

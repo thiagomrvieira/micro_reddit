@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_post
+  before_action :set_comment, only: [:destroy]
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -11,12 +12,19 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @post.comments.find(params[:id])
     @comment.destroy
-    redirect_to @post, notice: 'Comment was successfully destroyed.'
+
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@comment) }
+      format.html { redirect_to @comment.post, notice: 'Comment was successfully destroyed.' }
+    end
   end
 
   private
+
+  def set_comment
+    @comment = @post.comments.find(params[:id])
+  end
 
   def set_post
     @post = Post.find(params[:post_id])
