@@ -5,12 +5,43 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-white shadow">
+      <div class="container mx-auto px-5 py-4 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">MicroReddit</h1>
+
+        <div class="flex items-center space-x-4">
+          <!-- New Post Link -->
+          <%= link_to new_post_path, class: "flex items-center no-underline hover:no-underline active:no-underline bg-white text-gray-800 py-1.5 px-3 rounded-lg text-md font-semibold hover:bg-gray-100 shadow-sm border border-gray-300" do %>
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
+            </svg>
+            <span class="flex items-center gap-1.5">Create</span>
+          <% end %>
+
+          <!-- Notification Bell -->
+          <button class="relative text-gray-600 hover:text-gray-800 focus:outline-none mr-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.12 2.12 0 0118 14V10a6 6 0 00-12 0v4a2.12 2.12 0 01-.595 1.595L3 17h5m7 0a2 2 0 01-4 0m4 0h-4"></path>
+            </svg>
+            <span class="absolute top-0 right-0 block w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+          </button>
+
+          <!-- Avatar -->
+          <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold text-sm">
+            <span>AB</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto mt-10 px-5">
+      <%= yield %>
+    </main>
   </body>
 </html>

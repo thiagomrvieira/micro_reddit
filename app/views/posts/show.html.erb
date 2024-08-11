@@ -1,34 +1,32 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.body %></p>
+<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <h1 class="text-3xl font-bold mb-4"><%= @post.title %></h1>
+  <p class="mb-6"><%= @post.body %></p>
 
-<h2>Comments</h2>
-<%= form_with(model: [@post, @post.comments.build], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
-  <div class="actions">
-    <%= form.submit 'Add Comment' %>
-  </div>
-<% end %>
+  <h2 class="text-2xl font-bold mb-4">Comments</h2>
 
-<ul>
-  <% @post.comments.each do |comment| %>
+  <%= form_with(model: [@post, @post.comments.build], local: true, class: "mb-4") do |form| %>
+    <div class="mb-4">
+      <%= form.text_area :body, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24" %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <%= form.submit 'Add Comment', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
+  <% end %>
+
+  <ul class="mt-6">
+    <% @post.comments.each do |comment| %>
       <% if comment.persisted? %>
-        <li id="<%= dom_id(comment) %>">
-          <%= comment.body %>
-          <%= link_to 'Delete',
-            [comment.post, comment],
-            data: {
-              turbo_method: :delete,
-              turbo_confirm: 'Are you sure?'
-            },
-            class: "text-red-500 hover:underline"
-          %>
+        <li id="<%= dom_id(comment) %>" class="mb-4 border-t border-gray-200 pt-4">
+          <p class="mb-2"><%= comment.body %></p>
+          <%= link_to 'Delete', [comment.post, comment], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "text-red-500 hover:underline" %>
         </li>
       <% end %>
-  <% end %>
-</ul>
+    <% end %>
+  </ul>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+  <div class="mt-6">
+    <%= link_to 'Edit', edit_post_path(@post), class: "text-blue-500 hover:underline mr-4" %>
+    <%= link_to 'Back', posts_path, class: "text-blue-500 hover:underline" %>
+  </div>
+</div>
