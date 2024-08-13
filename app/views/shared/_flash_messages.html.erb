@@ -1,0 +1,27 @@
+<% flash.each do |type, message| %>
+  <% type_class = case type.to_sym
+    when :notice then "bg-green-50 border-l-4 border-green-500 text-green-700"
+    when :alert then "bg-red-50 border-l-4 border-red-500 text-red-700"
+    else "bg-blue-50 border-l-4 border-blue-500 text-blue-700"
+  end %>
+
+  <div class="flash-message <%= type_class %> p-4 mb-6 rounded-lg shadow-lg flex items-start space-x-4 transform transition-transform duration-300 ease-in-out">
+    <div>
+      <% icon = case type.to_sym
+        when :notice then "check-circle"
+        when :alert then "exclamation-triangle"
+        else "info-circle"
+      end %>
+      <svg class="h-6 w-6 <%= case type.to_sym
+        when :notice then 'text-green-500'
+        when :alert then 'text-red-500'
+        else 'text-blue-500'
+      end %>" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <use xlink:href="#<%= icon %>"></use>
+      </svg>
+    </div>
+    <div>
+      <p class="font-medium"><%= message %></p>
+    </div>
+  </div>
+<% end %>

@@ -13,7 +13,9 @@
   <body class="bg-gray-100 text-gray-900">
     <header class="bg-white shadow">
       <div class="container mx-auto px-5 py-4 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">MicroReddit</h1>
+        <%= link_to root_path, class: "text-2xl font-bold" do %>
+          <h1>MicroReddit</h1>
+        <% end %>
 
         <div class="flex items-center space-x-4">
           <!-- New Post Link -->
@@ -41,7 +43,11 @@
     </header>
 
     <main class="container mx-auto mt-10 px-5">
+      <div id="flash-messages">
+        <%= render 'shared/flash_messages' %>
+      </div>
       <%= yield %>
     </main>
   </body>
+
 </html>
