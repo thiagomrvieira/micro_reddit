@@ -43,9 +43,9 @@
     </header>
 
     <main class="container mx-auto mt-10 px-5">
-      <div id="flash-messages">
+      <turbo-frame id="flash-messages">
         <%= render 'shared/flash_messages' %>
-      </div>
+      </turbo-frame>
       <%= yield %>
     </main>
   </body>
