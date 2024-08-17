@@ -1,10 +1,24 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+before_action :set_post, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    sort_options = {
+      'title_asc'  => ['title', 'asc'],
+      'title_desc' => ['title', 'desc'],
+      'created_at_asc'  => ['created_at', 'asc'],
+      'created_at_desc' => ['created_at', 'desc']
+    }
+
+    sort_column = params[:sort]
+    sort_attribute, sort_order = sort_options[sort_column] || sort_options['created_at_desc']
+
+    @posts = Post.order("#{sort_attribute} #{sort_order}").page(params[:page]).per(10)
+
+    @total_pages = @posts.total_pages
+    @current_page = @posts.current_page
   end
+
 
   # GET /posts/1 or /posts/1.json
   def show
