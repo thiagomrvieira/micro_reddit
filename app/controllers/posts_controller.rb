@@ -74,7 +74,10 @@ before_action :set_post, only: %i[ show edit update destroy ]
     @post.destroy
 
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(@post) }
+      format.turbo_stream do
+        flash.now[:notice] = 'Post was successfully destroyed.'
+        render turbo_stream: turbo_stream.remove(@post) + turbo_stream.replace("flash-messages", partial: "shared/flash_messages")
+      end
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
     end
   end

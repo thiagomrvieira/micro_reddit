@@ -47,7 +47,7 @@
 </div>
 
 <!-- Posts List -->
-<div id="posts" class="space-y-6">
+<div id="posts" class="space-y-6 mb-10">
   <% @posts.each do |post| %>
     <div id="<%= dom_id(post) %>" class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
       <div class="flex items-center mb-4">
@@ -79,7 +79,8 @@
   <% end %>
 </div>
 
-
 <!-- Pagination Links -->
-<%= paginate @posts, remote: true %>
+<div class="flex justify-center mb-10">
+  <%= paginate @posts, remote: true %>
+</div>
 
