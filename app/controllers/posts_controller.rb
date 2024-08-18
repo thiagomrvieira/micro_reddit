@@ -17,6 +17,11 @@ before_action :set_post, only: %i[ show edit update destroy ]
 
     @total_pages = @posts.total_pages
     @current_page = @posts.current_page
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
 

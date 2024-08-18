@@ -1,38 +1,50 @@
 <!-- Page Heading -->
 <h1 class="text-5xl font-bold mb-8 text-gray-900">Posts</h1>
 
-<!-- Sorting and Pagination Controls -->
 <!-- Sorting Controls -->
-<div class="mb-4 flex space-x-4">
-  <%= link_to posts_path(sort: 'title_asc', page: params[:page]), data: { turbo_frame: 'posts' }, class: "flex items-center text-blue-600 hover:text-blue-800" do %>
-    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 10l5 5 5-5H5z"></path>
-    </svg>
-    <span>Sort by Title (Asc)</span>
+<div class="relative mb-4">
+  <%= turbo_frame_tag "sort_button" do %>
+    <button id="sortButton" class="flex items-center text-grey bg-grey focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">
+      <span><%= @current_sort_label || 'Sort Options' %></span>
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
   <% end %>
 
-  <%= link_to posts_path(sort: 'title_desc', page: params[:page]), data: { turbo_frame: 'posts' }, class: "flex items-center text-blue-600 hover:text-blue-800" do %>
-    <svg class="w-5 h-5 mr-1 rotate-180" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 10l5 5 5-5H5z"></path>
-    </svg>
-    <span>Sort by Title (Desc)</span>
-  <% end %>
-
-  <%= link_to posts_path(sort: 'created_at_asc', page: params[:page]), data: { turbo_frame: 'posts' }, class: "flex items-center text-blue-600 hover:text-blue-800" do %>
-    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 10l5 5 5-5H5z"></path>
-    </svg>
-    <span>Sort by Date (Asc)</span>
-  <% end %>
-
-  <%= link_to posts_path(sort: 'created_at_desc', page: params[:page]), data: { turbo_frame: 'posts' }, class: "flex items-center text-blue-600 hover:text-blue-800" do %>
-    <svg class="w-5 h-5 mr-1 rotate-180" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 10l5 5 5-5H5z"></path>
-    </svg>
-    <span>Sort by Date (Desc)</span>
-  <% end %>
+  <!-- Dropdown Menu -->
+  <div id="sortDropdown" class="z-10 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+    <ul class="py-2 text-sm text-gray-700" aria-labelledby="sortButton">
+      <li>
+        <%= link_to 'Title (Asc)',
+          posts_path(sort: 'title_asc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100" %>
+      </li>
+      <li>
+        <%= link_to 'Title (Desc)',
+          posts_path(sort: 'title_desc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+      <li>
+        <%= link_to 'Date (Asc)',
+          posts_path(sort: 'created_at_asc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+      <li>
+        <%= link_to 'Date (Desc)',
+          posts_path(sort: 'created_at_desc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+    </ul>
+  </div>
 </div>
-
 
 <!-- Posts List -->
 <%= turbo_frame_tag "posts" do %>
@@ -70,4 +82,5 @@
 <% end %>
 
 <!-- Pagination Links -->
-<%= paginate @posts %>
+<%= paginate @posts, remote: true %>
+
