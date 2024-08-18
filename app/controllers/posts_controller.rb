@@ -44,7 +44,7 @@ before_action :set_post, only: %i[ show edit update destroy ]
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to posts_url, notice: "Post was successfully created." }
+        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
         format.html do
