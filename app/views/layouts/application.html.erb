@@ -12,95 +12,18 @@
   </head>
 
   <body class="bg-gray-100 text-gray-900">
-    <header class="bg-white shadow">
-      <div class="container mx-auto px-5 py-4 flex items-center justify-between">
-        <!-- Logo or Title -->
-        <%= link_to root_path, class: "text-2xl font-bold" do %>
-          <h1>MicroReddit</h1>
-        <% end %>
-
-        <!-- Search Form -->
-        <div class="flex-1 mx-auto max-w-lg">
-          <form autocomplete="off" class="relative flex items-center">
-            <input
-              type="search"
-              name="q"
-              placeholder="Search MicroReddit"
-              class="w-full bg-gray-100 border border-gray-300 rounded-full py-2 px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-0"
-            />
-          </form>
-        </div>
-
-        <!-- User and Notification Icons -->
-        <div class="flex items-center space-x-4">
-          <!-- New Post Link -->
-          <%= link_to new_post_path, class: "flex items-center no-underline hover:no-underline active:no-underline bg-white text-gray-800 py-1.5 px-3 rounded-lg text-md font-semibold hover:bg-gray-100 shadow-sm border border-gray-300" do %>
-            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
-            </svg>
-            <span class="flex items-center gap-1.5">Create</span>
-          <% end %>
-
-          <!-- Notification Bell -->
-          <button class="relative text-gray-600 hover:text-gray-800 focus:outline-none mr-4">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.12 2.12 0 0118 14V10a6 6 0 00-12 0v4a2.12 2.12 0 01-.595 1.595L3 17h5m7 0a2 2 0 01-4 0m4 0h-4"></path>
-            </svg>
-            <span class="absolute top-0 right-0 block w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-          </button>
-
-          <!-- Avatar -->
-          <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold text-sm">
-            <span>AB</span>
-          </div>
-        </div>
-      </div>
-    </header>
+    <%= render 'shared/header' %>
 
     <main class="container mx-auto mt-10 px-5">
       <turbo-frame id="flash-messages">
         <%= render 'shared/flash_messages' %>
       </turbo-frame>
 
-      <!-- Layout using Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-
-        <!-- Navigation Section -->
-        <nav class="col-span-1 hidden lg:block">
-          <ul class="space-y-4">
-            <li class="text-gray-700 hover:text-gray-900">
-              <a href="/?feed=home" class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.724 6.765l-9.08-6.11A1.115 1.115 0 009.368.647L.276 6.765a.623.623 0 00.35 1.141h.444v10.001c.001.278.113.544.31.74.196.195.462.304.739.303h5.16a.704.704 0 00.706-.707v-4.507c0-.76 1.138-1.475 2.02-1.475.882 0 2.02.715 2.02 1.475v4.507a.71.71 0 00.707.707h5.16c.274-.001.538-.112.732-.307.195-.195.305-.46.306-.736v-10h.445a.618.618 0 00.598-.44.625.625 0 00-.25-.702Z"></path>
-                </svg>
-                Home
-              </a>
-            </li>
-            <li class="text-gray-700 hover:text-gray-900">
-              <a href="/r/popular/" class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 0a10 10 0 1 0 10 10A10.01 10.01 0 0 0 10 0Zm0 18.75a8.7 8.7 0 0 1-5.721-2.145l8.471-8.471v4.148H14V6.638A.647.647 0 0 0 13.362 6H7.718v1.25h4.148L3.4 15.721A8.739 8.739 0 1 1 10 18.75Z"></path>
-                </svg>
-                Popular
-              </a>
-            </li>
-            <li class="text-gray-700 hover:text-gray-900">
-              <a href="/explore/" class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18.937 19.672l-2.27-2.23A9.917 9.917 0 0110 20a10.032 10.032 0 01-7.419-3.297 1.976 1.976 0 01-.475-1.418 3.455 3.455 0 012.173-3.207c.426-.17.881-.255 1.34-.248h2.49a3.569 3.569 0 013.616 3.504v1.57h-1.25v-1.565a2.313 2.313 0 00-2.272-2.319H8.99a1.417 1.417 0 00-.845.175 2.199 2.199 0 00-1.382 2.049c.003.347.15.679.41.916A8.787 8.787 0 0010 18.75c1.64-.001 3.231-.472 4.595-1.358l.005-.004.008-.005c.47-.308.894-.676 1.266-1.096l-2.13-2.134 2.269-2.269 3.925 3.851-1.002 3.937Zm-6.693-9.101a2.45 2.45 0 01-3.087 1.657 2.45 2.45 0 01-1.657-3.087 2.45 2.45 0 113.087 1.657Zm-.33-1.724a1.2 1.2 0 00-1.53-.835 1.2 1.2 0 00-.835 1.53 1.2 1.2 0 002.365-.695Z"></path>
-                </svg>
-                Explore
-              </a>
-            </li>
-            <!-- Add more links as needed -->
-          </ul>
-        </nav>
-
-        <!-- Main Content Section -->
+        <%= render 'shared/nav' %>
         <section class="col-span-4">
           <%= yield %>
         </section>
-
       </div>
     </main>
   </body>

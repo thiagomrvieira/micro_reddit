@@ -1,0 +1,41 @@
+<%= turbo_frame_tag "sort_button" do %>
+    <button id="sortButton" class="flex items-center text-grey bg-grey focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">
+      <span><%= @current_sort_label || 'Sort Options' %></span>
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  <% end %>
+
+  <!-- Dropdown Menu -->
+  <div id="sortDropdown" class="z-10 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+    <ul class="py-2 text-sm text-gray-700" aria-labelledby="sortButton">
+      <li>
+        <%= link_to 'Title (Asc)',
+          posts_path(sort: 'title_asc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100" %>
+      </li>
+      <li>
+        <%= link_to 'Title (Desc)',
+          posts_path(sort: 'title_desc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+      <li>
+        <%= link_to 'Date (Asc)',
+          posts_path(sort: 'created_at_asc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+      <li>
+        <%= link_to 'Date (Desc)',
+          posts_path(sort: 'created_at_desc', page: params[:page]),
+          data: { turbo_frame: 'posts' },
+          class: "block px-4 py-2 hover:bg-gray-100"
+        %>
+      </li>
+    </ul>
+  </div>
