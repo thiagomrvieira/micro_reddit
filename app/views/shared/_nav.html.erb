@@ -1,12 +1,12 @@
 <nav class="col-span-1 hidden lg:block">
   <ul class="space-y-4">
     <li class="text-gray-700 hover:text-gray-900">
-      <a href="/?feed=home" class="flex items-center">
+      <%= link_to root_path, class: "flex items-center" do %>
         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path d="M19.724 6.765l-9.08-6.11A1.115 1.115 0 009.368.647L.276 6.765a.623.623 0 00.35 1.141h.444v10.001c.001.278.113.544.31.74.196.195.462.304.739.303h5.16a.704.704 0 00.706-.707v-4.507c0-.76 1.138-1.475 2.02-1.475.882 0 2.02.715 2.02 1.475v4.507a.71.71 0 00.707.707h5.16c.274-.001.538-.112.732-.307.195-.195.305-.46.306-.736v-10h.445a.618.618 0 00.598-.44.625.625 0 00-.25-.702Z"></path>
         </svg>
         Home
-      </a>
+      <% end %>
     </li>
     <li class="text-gray-700 hover:text-gray-900">
       <a href="/r/popular/" class="flex items-center">
