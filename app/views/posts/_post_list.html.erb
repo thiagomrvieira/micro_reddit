@@ -1,11 +1,12 @@
-<!-- app/views/posts/_post.html.erb -->
 <div id="<%= dom_id(post) %>" class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
   <div class="flex items-center mb-4">
     <div class="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 font-bold">
       <%= post.title[0] %>
     </div>
     <div class="ml-4">
-      <h2 class="text-xl font-semibold text-gray-800"><%= post.title %></h2>
+      <h2 class="text-xl font-semibold text-gray-800">
+        <%= link_to post.title, post, class: "text-gray-800 hover:underline" %>
+      </h2>
       <p class="text-gray-600 text-sm"><%= time_ago_in_words(post.created_at) %> ago</p>
     </div>
   </div>
@@ -14,8 +15,7 @@
     <%= render post %>
   </div>
 
-  <div class="mt-4 flex justify-between items-center">
-    <%= link_to "Show this post", post, class: "text-blue-600 hover:underline" %>
+  <div class="mt-4 flex justify-end items-center">
     <%= link_to 'Delete Post',
       post_path(post),
       data: {
