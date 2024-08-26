@@ -5,10 +5,11 @@
     <% end %>
 
     <div class="flex-1 mx-auto max-w-lg">
-      <form autocomplete="off" class="relative flex items-center">
+      <form action="<%= posts_path %>" method="get" autocomplete="off" class="relative flex items-center">
         <input
           type="search"
           name="q"
+          value="<%= params[:q] %>"
           placeholder="Search MicroReddit"
           class="w-full bg-gray-100 border border-gray-300 rounded-full py-2 px-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-0"
         />

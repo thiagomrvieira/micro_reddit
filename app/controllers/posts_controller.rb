@@ -13,7 +13,7 @@ before_action :set_post, only: %i[ show edit update destroy ]
     sort_column = params[:sort]
     sort_attribute, sort_order = sort_options[sort_column] || sort_options['created_at_desc']
 
-    @posts = Post.order("#{sort_attribute} #{sort_order}").page(params[:page]).per(10)
+    @posts = Post.search(params[:q]).order("#{sort_attribute} #{sort_order}").page(params[:page]).per(10)
 
     @total_pages = @posts.total_pages
     @current_page = @posts.current_page
