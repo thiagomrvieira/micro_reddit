@@ -1,12 +1,10 @@
 <div id="<%= dom_id post %>">
-  <p>
-    <strong>Title:</strong>
-    <%= post.title %>
-  </p>
-
-  <p>
-    <strong>Body:</strong>
+  <div class="mb-2">
+    <h2 class="text-xl font-semibold text-gray-800">
+      <%= link_to post.title, post, class: "text-gray-800 hover:underline" %>
+    </h2>
+  </div>
+  <div class="text-sm text-gray-700 leading-relaxed">
     <%= post.body %>
-  </p>
-
+  </div>
 </div>
