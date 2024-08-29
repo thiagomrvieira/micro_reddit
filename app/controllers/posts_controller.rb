@@ -4,16 +4,28 @@ before_action :set_post, only: %i[ show edit update destroy ]
   # GET /posts or /posts.json
   def index
     sort_options = {
-      'title_asc'  => ['title', 'asc'],
-      'title_desc' => ['title', 'desc'],
+      'title_asc'       => ['title', 'asc'],
+      'title_desc'      => ['title', 'desc'],
       'created_at_asc'  => ['created_at', 'asc'],
-      'created_at_desc' => ['created_at', 'desc']
+      'created_at_desc' => ['created_at', 'desc'],
+      'most_popular'    => ['comments_count', 'desc']
     }
 
     sort_column = params[:sort]
-    sort_attribute, sort_order = sort_options[sort_column] || sort_options['created_at_desc']
 
-    @posts = Post.search(params[:q]).order("#{sort_attribute} #{sort_order}").page(params[:page]).per(10)
+    if sort_column == 'most_popular'
+      @posts = Post.left_joins(:comments)
+                   .group(:id)
+                   .order('COUNT(comments.id) DESC')
+                   .page(params[:page])
+                   .per(10)
+    else
+      sort_attribute, sort_order = sort_options[sort_column] || sort_options['created_at_desc']
+      @posts = Post.search(params[:q])
+                   .order("#{sort_attribute} #{sort_order}")
+                   .page(params[:page])
+                   .per(10)
+    end
 
     @total_pages = @posts.total_pages
     @current_page = @posts.current_page
